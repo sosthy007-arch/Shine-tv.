@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101020">
+<title>SHINE TV</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#101020;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#191932;
+ padding:20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+.logo{font-size:27px;font-weight:bold;color:#ffb400}
+.logo span{color:white}
+nav{
+ display:flex;
+ overflow-x:auto;
+ background:#191932;
+ padding:12px;
+ gap:10px;
+}
+nav button{
+ border:0;
+ padding:12px 16px;
+ border-radius:20px;
+ background:#292943;
+ color:white;
+ white-space:nowrap;
+}
+nav button.active{background:#ffb400;color:#111}
+.search{padding:15px}
+input{
+ width:100%;
+ padding:14px;
+ border-radius:10px;
+ border:0;
+ font-size:16px;
+}
+h2{padding:0 15px}
+.hero{
+ margin:15px;
+ padding:30px 20px;
+ background:linear-gradient(120deg,#6b159a,#161638);
+ border-radius:15px;
+}
+.hero h1{font-size:29px}
+.hero p{color:#ddd}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+ padding:15px;
+}
+.card{
+ background:#202039;
+ border-radius:12px;
+ overflow:hidden;
+}
+.poster{
+ height:145px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:55px;
+ background:linear-gradient(140deg,#54216c,#202044);
+}
+.card h3{font-size:15px;padding:0 10px}
+.card button{
+ margin:0 10px 12px;
+ padding:10px;
+ background:#ffb400;
+ border:0;
+ border-radius:7px;
+ font-weight:bold;
+}
+section{display:none}
+section.active{display:block}
+.player{
+ padding:15px;
+}
+video{
+ width:100%;
+ background:black;
+ border-radius:12px;
+}
+footer{
+ text-align:center;
+ color:#888;
+ padding:25px;
+}
+.small{color:#aaa;font-size:13px}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">SHINE <span>TV</span></div>
+ <div>📺</div>
+</header>
+
+<nav>
+ <button class="active" onclick="showPage('home',this)">Accueil</button>
+ <button onclick="showPage('films',this)">Films</button>
+ <button onclick="showPage('series',this)">Séries</button>
+ <button onclick="showPage('live',this)">TV en direct</button>
+</nav>
+
+<div class="search">
+ <input id="search" placeholder="🔍 Rechercher un film ou une série..." oninput="searchItems()">
+</div>
+
+<section id="home" class="active">
+ <div class="hero">
+  <h1>Bienvenue sur SHINE TV</h1>
+  <p>Votre univers de divertissement.</p>
+  <p>Films • Séries • Télévision en direct</p>
+ </div>
+ <h2>Nos catégories</h2>
+ <div class="grid">
+  <div class="card">
+   <div class="poster">🎬</div>
+   <h3>Films</h3>
+   <button onclick="showPage('films')">Découvrir</button>
+  </div>
+  <div class="card">
+   <div class="poster">📺</div>
+   <h3>Séries</h3>
+   <button onclick="showPage('series')">Découvrir</button>
+  </div>
+  <div class="card">
+   <div class="poster">📡</div>
+   <h3>TV en direct</h3>
+   <button onclick="showPage('live')">Regarder</button>
+  </div>
+ </div>
+</section>
+
+<section id="films">
+ <h2>🎬 Films</h2>
+ <div class="grid" id="filmGrid"></div>
+</section>
+
+<section id="series">
+ <h2>📺 Séries</h2>
+ <div class="grid" id="seriesGrid"></div>
+</section>
+
+<section id="live">
+ <h2>📡 Télévision en direct</h2>
+ <div class="player">
+  <video id="videoPlayer" controls playsinline></video>
+  <p>Lecteur SHINE TV</p>
+  <p class="small">Ajoutez une adresse vidéo HLS ou MP4 que vous êtes autorisé à diffuser.</p>
+  <input id="streamUrl" placeholder="Adresse du flux vidéo autorisé">
+  <br><br>
+  <button onclick="playStream()" style="padding:12px;background:#ffb400;border:0;border-radius:8px">Lire la chaîne</button>
+ </div>
+ <h2>Mes chaînes</h2>
+ <div id="channels" class="grid"></div>
+ <div class="player">
+  <input id="channelName" placeholder="Nom de la chaîne">
+  <br><br>
+  <button onclick="addChannel()" style="padding:12px;background:#ffb400;border:0;border-radius:8px">Ajouter une chaîne</button>
+ </div>
+</section>
+
+<footer>
+ SHINE TV © 2026
+ <p>Votre divertissement, partout.</p>
+</footer>
+
+<script>
+const films = [
+ ["Film de démonstration","🎬"],
+ ["Action et aventure","💥"],
+ ["Cinéma","🍿"],
+ ["Nouveautés","⭐"]
+];
+
+const series = [
+ ["Série de démonstration","📺"],
+ ["Aventure","🌍"],
+ ["Drama","🎭"],
+ ["Comédie","😂"]
+];
+
+function createCards(items,id){
+ document.getElementById(id).innerHTML=items.map(item=>`
+ <div class="card searchable">
+  <div class="poster">${item[1]}</div>
+  <h3>${item[0]}</h3>
+  <button onclick="alert('Le catalogue vidéo sera connecté dans une prochaine étape.')">Découvrir</button>
+ </div>
+ `).join("");
+}
+
+createCards(films,"filmGrid");
+createCards(series,"seriesGrid");
+
+function showPage(page,button){
+ document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(button) button.classList.add("active");
+ document.getElementById("search").value="";
+}
+
+function searchItems(){
+ const q=document.getElementById("search").value.toLowerCase();
+ document.querySelectorAll(".searchable").forEach(card=>{
+  card.style.display=card.innerText.toLowerCase().includes(q)?"block":"none";
+ });
+}
+
+function playStream(){
+ const url=document.getElementById("streamUrl").value.trim();
+ if(!url.startsWith("https://")&&!url.startsWith("http://")){
+  alert("Veuillez entrer une adresse vidéo valide.");
+  return;
+ }
+ const player=document.getElementById("videoPlayer");
+ player.src=url;
+ player.play().catch(()=>alert("Ce flux n'est pas compatible avec le lecteur."));
+}
+
+function getChannels(){
+ try{return JSON.parse(localStorage.getItem("shineChannels"))||[]}
+ catch(e){return []}
+}
+
+function saveChannels(channels){
+ localStorage.setItem("shineChannels",JSON.stringify(channels));
+}
+
+function displayChannels(){
+ const channels=getChannels();
+ document.getElementById("channels").innerHTML=channels.map((c,i)=>`
+ <div class="card">
+  <div class="poster">📡</div>
+  <h3>${c.name}</h3>
+  <button onclick="playChannel(${i})">Regarder</button>
+  <button onclick="deleteChannel(${i})">Supprimer</button>
+ </div>
+ `).join("");
+}
+
+function addChannel(){
+ const name=document.getElementById("channelName").value.trim();
+ const url=document.getElementById("streamUrl").value.trim();
+ if(!name||!url.startsWith("http")){
+  alert("Entrez le nom et l'adresse de votre chaîne.");
+  return;
+ }
+ const channels=getChannels();
+ channels.push({name,url});
+ saveChannels(channels);
+ document.getElementById("channelName").value="";
+ displayChannels();
+}
+
+function playChannel(i){
+ const channel=getChannels()[i];
+ document.getElementById("streamUrl").value=channel.url;
+ playStream();
+}
+
+function deleteChannel(i){
+ const channels=getChannels();
+ channels.splice(i,1);
+ saveChannels(channels);
+ displayChannels();
+}
+
+displayChannels();
+</script>
+
+</body>
+</html>
