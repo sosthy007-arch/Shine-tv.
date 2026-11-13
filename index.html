@@ -8,226 +8,115 @@
 <title>SHINE TV</title>
 <style>
 :root{--bg:#090909;--panel:#151515;--gold:#d8ad52;--gold2:#f3d58d;--muted:#aaa;--white:#f7f5ef}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;padding-bottom:82px}
-button{cursor:pointer}
-header{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #292929;background:#0c0c0c;position:sticky;top:0;z-index:5}
-.brand{font-size:23px;font-weight:900;letter-spacing:1.5px;color:var(--gold)}
-.brand span{color:#fff}
-.header-actions{display:flex;gap:10px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;padding-bottom:82px}
+button{cursor:pointer}header{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #292929;background:#0c0c0c;position:sticky;top:0;z-index:5}
+.brand{font-size:23px;font-weight:900;letter-spacing:1.5px;color:var(--gold)}.brand span{color:#fff}.header-actions{display:flex;gap:10px}
 .icon-btn{border:1px solid #383838;background:#181818;color:#fff;border-radius:50%;width:39px;height:39px;font-size:17px}
-main{max-width:900px;margin:auto}
-.hero{margin:16px 14px 24px;min-height:280px;border-radius:19px;overflow:hidden;position:relative;background:linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.45)),linear-gradient(135deg,#40331b,#17120b 55%,#080808);display:flex;align-items:flex-end;padding:24px}
+main{max-width:900px;margin:auto}.hero{margin:16px 14px 24px;min-height:280px;border-radius:19px;overflow:hidden;position:relative;background:linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.45)),linear-gradient(135deg,#40331b,#17120b 55%,#080808);display:flex;align-items:flex-end;padding:24px}
 .hero:before{content:"";position:absolute;width:210px;height:210px;border:1px solid rgba(216,173,82,.3);border-radius:50%;right:-35px;top:15px;box-shadow:0 0 0 22px rgba(216,173,82,.04),0 0 0 48px rgba(216,173,82,.03)}
-.hero-content{position:relative;max-width:440px}
-.eyebrow{color:var(--gold2);font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
-h1{font-size:32px;line-height:1.1;margin:10px 0}
-.hero p{color:#d0ccc3;line-height:1.5;font-size:14px;margin:0 0 18px}
+.hero-content{position:relative;max-width:440px}.eyebrow{color:var(--gold2);font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:32px;line-height:1.1;margin:10px 0}.hero p{color:#d0ccc3;line-height:1.5;font-size:14px;margin:0 0 18px}
 .primary{border:0;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17120a;border-radius:9px;padding:12px 17px;font-weight:800}
 .secondary{border:1px solid #777;background:#171717;color:#fff;border-radius:9px;padding:11px 15px;margin-left:7px}
-.section{padding:0 14px;margin:24px 0}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
-h2{font-size:18px;margin:0}
-.see-all{font-size:12px;color:var(--gold);background:none;border:0}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.category{min-height:85px;border:1px solid #333;background:linear-gradient(145deg,#1c1c1c,#111);border-radius:13px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:12px}
-.category b{font-size:23px;color:var(--gold);font-weight:normal}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.section{padding:0 14px;margin:24px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+h2{font-size:18px;margin:0}.see-all{font-size:12px;color:var(--gold);background:none;border:0}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.category{min-height:85px;border:1px solid #333;background:linear-gradient(145deg,#1c1c1c,#111);border-radius:13px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:12px}
+.category b{font-size:23px;color:var(--gold);font-weight:normal}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
 .poster{height:145px;border-radius:12px;background:linear-gradient(145deg,#594528,#17120c 65%,#080808);border:1px solid #4a3a20;display:flex;align-items:flex-end;padding:10px;position:relative;overflow:hidden}
 .poster:before{content:"";position:absolute;width:100px;height:100px;border:1px solid rgba(255,221,155,.35);border-radius:50%;top:12px;right:-20px}
-.poster span{position:relative;font-size:12px;font-weight:bold;text-shadow:0 1px 4px #000}
-.poster small{display:block;color:#c7b58e;font-size:10px;margin-top:4px}
-.card-label{font-size:12px;margin:7px 2px 0;color:#eee}
-.match{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid #303030;border-radius:12px;padding:13px;margin-bottom:9px}
-.match strong{font-size:13px}
-.match small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.live{color:#ff7373;font-size:10px;font-weight:bold;letter-spacing:1px}
+.poster span{position:relative;font-size:12px;font-weight:bold;text-shadow:0 1px 4px #000}.poster small{display:block;color:#c7b58e;font-size:10px;margin-top:4px}
+.card-label{font-size:12px;margin:7px 2px 0;color:#eee}.match{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid #303030;border-radius:12px;padding:13px;margin-bottom:9px}
+.match strong{font-size:13px}.match small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.live{color:#ff7373;font-size:10px;font-weight:bold;letter-spacing:1px}
 .notice{margin:22px 14px;padding:13px;border:1px solid #594723;background:#1b170f;border-radius:11px;color:#d6c49c;font-size:12px;line-height:1.5}
 footer{position:fixed;bottom:0;left:0;right:0;background:rgba(12,12,12,.97);border-top:1px solid #303030;display:flex;justify-content:space-around;padding:10px 4px max(10px,env(safe-area-inset-bottom));z-index:8}
 nav button{border:0;background:none;color:#aaa;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:55px}
-nav button b{font-size:19px;font-weight:normal}
-nav button.active{color:var(--gold)}
-.search-panel{display:none;padding:12px 14px}
-.search-panel input{width:100%;padding:13px;border-radius:10px;background:#171717;border:1px solid #51452e;color:white;font-size:15px}
-.country-select{width:100%;padding:13px;margin:4px 0 12px;border-radius:10px;background:#171717;border:1px solid #6b552b;color:#f3d58d;font-size:15px}
+nav button b{font-size:19px;font-weight:normal}nav button.active{color:var(--gold)}
+.search-panel{display:none;padding:12px 14px}.search-panel input{width:100%;padding:13px;border-radius:10px;background:#171717;border:1px solid #51452e;color:white;font-size:15px}
+.country-select{width:100%;;padding:13px;margin:4px 0 12px;border-radius:10px;background:#171717;border:1px solid #6b552b;color:#f3d58d;font-size:15px}
 .channel-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#151515;border:1px solid #333;border-radius:11px;padding:12px;margin:8px 0}
-.channel-card strong{font-size:13px}
-.channel-card small{display:block;color:#aaa;font-size:11px;margin-top:4px}
+.channel-card strong{font-size:13px}.channel-card small{display:block;color:#aaa;font-size:11px;margin-top:4px}
 .play-channel{background:linear-gradient(135deg,#f3d58d,#d8ad52);border:0;color:#17120a;font-weight:bold;border-radius:8px;padding:9px 12px;white-space:nowrap}
 #tvPlayer{width:100%;max-height:260px;background:#000;border:1px solid #594723;border-radius:12px;margin:8px 0}
 .player-status{font-size:12px;color:#d6c49c;line-height:1.5;margin:4px 0 12px}
 .parent-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:20;align-items:center;justify-content:center;padding:16px}
-.parent-overlay.open{display:flex}
-.parent-box{position:relative;width:100%;max-width:430px;max-height:90vh;overflow:auto;background:#171717;border:1px solid #6b552b;border-radius:18px;padding:23px;box-shadow:0 18px 60px #000}
-.parent-box h2{margin:9px 0;font-size:21px}
-.parent-intro,.parent-help{color:#bbb;font-size:13px;line-height:1.5}
+.parent-overlay.open{display:flex}.parent-box{position:relative;width:100%;max-width:430px;max-height:90vh;overflow:auto;background:#171717;border:1px solid #6b552b;border-radius:18px;padding:23px;box-shadow:0 18px 60px #000}
+.parent-box h2{margin:9px 0;font-size:21px}.parent-intro,.parent-help{color:#bbb;font-size:13px;line-height:1.5}
 .parent-close{position:absolute;right:14px;top:13px;border:1px solid #444;background:#222;color:#fff;border-radius:50%;width:34px;height:34px}
-.parent-box label{font-size:13px;color:#eee}
-.pin-input{display:block;width:100%;margin:10px 0 14px;padding:14px;background:#0b0b0b;border:1px solid #65532f;border-radius:9px;color:white;font-size:22px;letter-spacing:9px;text-align:center}
-.parent-action{width:100%;margin:7px 0}
-.setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #333}
+.parent-box label{font-size:13px;color:#eee}.pin-input{display:block;width:100%;margin:10px 0 14px;padding:14px;background:#0b0b0b;border:1px solid #65532f;border-radius:9px;color:white;font-size:22px;letter-spacing:9px;text-align:center}
+.parent-action{width:100%;margin:7px 0}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #333}
 .setting-row strong{font-size:14px}.setting-row small{display:block;color:#aaa;font-size:11px;margin-top:5px;max-width:240px}
-.switch{position:relative;display:inline-block;width:45px;height:25px;flex-shrink:0}
-.switch input{opacity:0;width:0;height:0}
-.switch span{position:absolute;inset:0;background:#555;border-radius:20px;transition:.2s}
-.switch span:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}
-.switch input:checked+span{background:#b78b37}
-.switch input:checked+span:before{transform:translateX(20px)}
-[hidden]{display:none!important}
+.switch{position:relative;display:inline-block;width:45px;height:25px;flex-shrink:0}.switch input{opacity:0;width:0;height:0}
+.switch span{position:absolute;inset:0;background:#555;border-radius:20px;transition:.2s}.switch span:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}
+.switch input:checked+span{background:#b78b37}.switch input:checked+span:before{transform:translateX(20px)}[hidden]{display:none!important}
 @media(min-width:650px){.hero{min-height:340px;margin-top:24px}.hero h1{font-size:42px}.poster{height:205px}.section{margin:30px 0}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand">SHINE <span>TV</span></div>
-  <div class="header-actions">
-    <button class="icon-btn" aria-label="Rechercher" onclick="toggleSearch()">⌕</button>
-    <button class="icon-btn" aria-label="Paramètres parentaux" onclick="openParents()">♙</button>
-  </div>
-</header>
+<header><div class="brand">SHINE <span>TV</span></div><div class="header-actions">
+<button class="icon-btn" aria-label="Rechercher" onclick="toggleSearch()">⌕</button>
+<button class="icon-btn" aria-label="Paramètres parentaux" onclick="openParents()">♙</button></div></header>
 <div class="search-panel" id="searchPanel"><input id="searchInput" type="search" placeholder="Rechercher une chaîne ou un film..." oninput="searchContent()"></div>
 <main>
-  <section class="hero"><div class="hero-content">
-    <div class="eyebrow">Bienvenue dans votre univers</div>
-    <h1>Le divertissement<br>prend une autre dimension.</h1>
-    <p>Retrouvez vos programmes, vos films et les grands rendez-vous sportifs au même endroit.</p>
-    <button class="primary" onclick="goTo('direct')">Découvrir SHINE TV ▶</button>
-    <button class="secondary" onclick="goTo('films')">Explorer</button>
-  </div></section>
-
-  <section class="section"><div class="section-head"><h2>Explorer</h2></div>
-    <div class="categories">
-      <button class="category" onclick="goTo('direct')"><b>▣</b>TV en direct</button>
-      <button class="category" onclick="goTo('sports')"><b>⚽</b>Sports</button>
-      <button class="category" onclick="goTo('films')"><b>▰</b>Films</button>
-      <button class="category" onclick="goTo('series')"><b>▤</b>Séries</button>
-    </div>
-  </section>
-
-  <section class="section" id="direct">
-    <div class="section-head"><h2>📺 CHAÎNES TV</h2><span class="see-all" id="channelCount">Chargement…</span></div>
-    <label for="countrySelect" class="parent-help">Choisir une région ou une catégorie</label>
-    <select id="countrySelect" class="country-select">
-      <option value="africa">🌍 Afrique (Congo inclus)</option>
-      <option value="europe">🌍 Europe (Bulgarie incluse)</option>
-      <option value="international">🌐 International</option>
-      <option value="all">📺 Toutes les chaînes</option>
-      <option value="movies">🎬 Films</option>
-      <option value="entertainment">🎭 Divertissement</option>
-      <option value="music">🎵 Musique</option>
-      <option value="documentaries">🎥 Documentaires</option>
-      <option value="kids">🧸 Enfants</option>
-      <option value="news">📰 Actualités</option>
-      <option value="sports">⚽ Sports</option>
-    </select>
-    <video id="tvPlayer" controls playsinline preload="none"></video>
-    <div class="player-status" id="playerStatus">Choisissez une chaîne pour lancer la lecture. Certains flux peuvent être indisponibles.</div>
-    <div id="channelList"><div class="match"><div><strong>Chargement des chaînes…</strong><small>Veuillez patienter.</small></div></div></div>
-  </section>
-
-  <section class="section" id="sports"><div class="section-head"><h2>⚽ Le rendez-vous sport</h2></div>
-    <div class="match"><div><strong>Calendrier des matchs</strong><small>Programmes et résultats à intégrer</small></div><span style="color:var(--gold);font-size:12px">SPORT</span></div>
-    <div class="match"><div><strong>Événements en direct</strong><small>Disponibles après accord des diffuseurs</small></div><span class="live">BIENTÔT</span></div>
-  </section>
-
-  <section class="section" id="films"><div class="section-head"><h2>🎬 À découvrir</h2></div>
-    <div class="cards">
-      <div class="movie" data-name="Sélection cinéma"><div class="poster"><span>SÉLECTION<small>CINÉMA</small></span></div><div class="card-label">Sélection cinéma</div></div>
-      <div class="movie" data-name="Action"><div class="poster" style="background:linear-gradient(145deg,#56352c,#17100e 70%,#080808)"><span>GRANDS<small>FILMS D'ACTION</small></span></div><div class="card-label">Action</div></div>
-      <div class="movie" data-name="Famille"><div class="poster" style="background:linear-gradient(145deg,#4b4930,#17170e 70%,#080808)"><span>EN FAMILLE<small>À PARTAGER</small></span></div><div class="card-label">Famille</div></div>
-    </div>
-  </section>
-  <section class="section" id="series"><div class="section-head"><h2>📽️ Séries</h2><button class="see-all">Bientôt disponible</button></div>
-    <div class="match"><div><strong>Votre prochain épisode</strong><small>Un espace séries sera bientôt disponible</small></div><span style="color:var(--gold);font-size:12px">SÉRIES</span></div>
-  </section>
-  <div class="notice">✨ <strong>SHINE TV est en préparation.</strong><br>Utilisez uniquement des flux que vous êtes autorisé à diffuser. La présence d'un flux public ne garantit pas un droit de rediffusion commerciale.</div>
+<section class="hero"><div class="hero-content"><div class="eyebrow">Bienvenue dans votre univers</div>
+<h1>Le divertissement<br>prend une autre dimension.</h1>
+<p>Retrouvez vos programmes, vos films et les grands rendez-vous sportifs au même endroit.</p>
+<button class="primary" onclick="goTo('direct')">Découvrir SHINE TV ▶</button><button class="secondary" onclick="goTo('films')">Explorer</button></div></section>
+<section class="section"><div class="section-head"><h2>Explorer</h2></div><div class="categories">
+<button class="category" onclick="goTo('direct')"><b>▣</b>TV en direct</button><button class="category" onclick="goTo('sports')"><b>⚽</b>Sports</button>
+<button class="category" onclick="goTo('films')"><b>▰</b>Films</button><button class="category" onclick="goTo('series')"><b>▤</b>Séries</button></div></section>
+<section class="section" id="direct"><div class="section-head"><h2>📺 CHAÎNES TV</h2><span class="see-all" id="channelCount">Chargement…</span></div>
+<label for="countrySelect" class="parent-help">Choisir un pays, une région ou une catégorie</label>
+<select id="countrySelect" class="country-select">
+<option value="congo">🇨🇬 Congo</option><option value="burkina">🇧🇫 Burkina Faso</option>
+<option value="africa">🌍 Afrique</option><option value="bulgaria">🇧🇬 Bulgarie</option>
+<option value="europe">🌍 Europe</option><option value="international">🌐 International</option>
+<option value="all">📺 Toutes les chaînes</option><option value="movies">🎬 Films</option>
+<option value="entertainment">🎭 Divertissement</option><option value="music">🎵 Musique</option>
+<option value="documentaries">🎥 Documentaires</option><option value="kids">🧸 Enfants</option>
+<option value="news">📰 Actualités</option><option value="sports">⚽ Sports</option></select>
+<video id="tvPlayer" controls playsinline preload="none"></video>
+<div class="player-status" id="playerStatus">Choisissez une chaîne pour lancer la lecture. Certains flux peuvent être indisponibles.</div>
+<div id="channelList"><div class="match"><div><strong>Chargement des chaînes…</strong><small>Veuillez patienter.</small></div></div></div></section>
+<section class="section" id="sports"><div class="section-head"><h2>⚽ Le rendez-vous sport</h2></div>
+<div class="match"><div><strong>Calendrier des matchs</strong><small>Programmes et résultats à intégrer</small></div><span style="color:var(--gold);font-size:12px">SPORT</span></div>
+<div class="match"><div><strong>Événements en direct</strong><small>Disponibles après accord des diffuseurs</small></div><span class="live">BIENTÔT</span></div></section>
+<section class="section" id="films"><div class="section-head"><h2>🎬 À découvrir</h2></div><div class="cards">
+<div class="movie" data-name="Sélection cinéma"><div class="poster"><span>SÉLECTION<small>CINÉMA</small></span></div><div class="card-label">Sélection cinéma</div></div>
+<div class="movie" data-name="Action"><div class="poster" style="background:linear-gradient(145deg,#56352c,#17100e 70%,#080808)"><span>GRANDS<small>FILMS D'ACTION</small></span></div><div class="card-label">Action</div></div>
+<div class="movie" data-name="Famille"><div class="poster" style="background:linear-gradient(145deg,#4b4930,#17170e 70%,#080808)"><span>EN FAMILLE<small>À PARTAGER</small></span></div><div class="card-label">Famille</div></div></div></section>
+<section class="section" id="series"><div class="section-head"><h2>📽️ Séries</h2><button class="see-all">Bientôt disponible</button></div>
+<div class="match"><div><strong>Votre prochain épisode</strong><small>Un espace séries sera bientôt disponible</small></div><span style="color:var(--gold);font-size:12px">SÉRIES</span></div></section>
+<div class="notice">✨ <strong>SHINE TV est en préparation.</strong><br>Utilisez uniquement des flux que vous êtes autorisé à diffuser. La présence d'un flux public ne garantit pas un droit de rediffusion commerciale.</div>
 </main>
-
-<div class="parent-overlay" id="parentOverlay" role="dialog" aria-modal="true" aria-labelledby="parentTitle">
-  <div class="parent-box">
-    <button class="parent-close" onclick="closeParents()" aria-label="Fermer">✕</button>
-    <div class="eyebrow">Espace famille</div><h2 id="parentTitle">🔒 Paramètres parentaux</h2>
-    <p class="parent-intro">Protégez les enfants et choisissez les contenus accessibles.</p>
-    <div id="pinGate">
-      <label for="parentPin">Code PIN parental (4 chiffres)</label>
-      <input id="parentPin" class="pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
-      <button class="primary parent-action" onclick="unlockParents()">Continuer</button>
-      <p class="parent-help" id="pinMessage">Première utilisation : choisissez un code PIN à 4 chiffres.</p>
-    </div>
-    <div id="parentSettings" hidden>
-      <div class="setting-row"><div><strong>Contrôle parental</strong><small>Activer la protection des contenus</small></div><label class="switch"><input id="parentEnabled" type="checkbox" checked><span></span></label></div>
-      <div class="setting-row"><div><strong>Profil enfant</strong><small>Afficher uniquement les contenus adaptés</small></div><label class="switch"><input id="kidsOnly" type="checkbox"><span></span></label></div>
-      <div class="setting-row"><div><strong>Bloquer les contenus adultes</strong><small>Masquer les contenus réservés aux adultes</small></div><label class="switch"><input id="blockAdult" type="checkbox" checked><span></span></label></div>
-      <div class="setting-row"><div><strong>Autoriser les achats</strong><small>Demander le PIN avant tout achat</small></div><label class="switch"><input id="purchasePin" type="checkbox" checked><span></span></label></div>
-      <button class="secondary parent-action" onclick="changeParentPin()">Modifier le code PIN</button>
-      <button class="primary parent-action" onclick="saveParentSettings()">Enregistrer les paramètres</button>
-      <p class="parent-help" id="saveMessage">Les réglages sont enregistrés sur cet appareil.</p>
-    </div>
-  </div>
-</div>
-
+<div class="parent-overlay" id="parentOverlay" role="dialog" aria-modal="true" aria-labelledby="parentTitle"><div class="parent-box">
+<button class="parent-close" onclick="closeParents()" aria-label="Fermer">✕</button><div class="eyebrow">Espace famille</div><h2 id="parentTitle">🔒 Paramètres parentaux</h2>
+<p class="parent-intro">Protégez les enfants et choisissez les contenus accessibles.</p>
+<div id="pinGate"><label for="parentPin">Code PIN parental (4 chiffres)</label><input id="parentPin" class="pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+<button class="primary parent-action" onclick="unlockParents()">Continuer</button><p class="parent-help" id="pinMessage">Première utilisation : choisissez un code PIN à 4 chiffres.</p></div>
+<div id="parentSettings" hidden>
+<div class="setting-row"><div><strong>Contrôle parental</strong><small>Activer la protection des contenus</small></div><label class="switch"><input id="parentEnabled" type="checkbox" checked><span></span></label></div>
+<div class="setting-row"><div><strong>Profil enfant</strong><small>Afficher uniquement les contenus adaptés</small></div><label class="switch"><input id="kidsOnly" type="checkbox"><span></span></label></div>
+<div class="setting-row"><div><strong>Bloquer les contenus adultes</strong><small>Masquer les contenus réservés aux adultes</small></div><label class="switch"><input id="blockAdult" type="checkbox" checked><span></span></label></div>
+<div class="setting-row"><div><strong>Autoriser les achats</strong><small>Demander le PIN avant tout achat</small></div><label class="switch"><input id="purchasePin" type="checkbox" checked><span></span></label></div>
+<button class="secondary parent-action" onclick="changeParentPin()">Modifier le code PIN</button>
+<button class="primary parent-action" onclick="saveParentSettings()">Enregistrer les paramètres</button><p class="parent-help" id="saveMessage">Les réglages sont enregistrés sur cet appareil.</p></div></div></div>
 <footer><nav style="display:flex;width:100%;justify-content:space-around">
-  <button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>Accueil</button>
-  <button onclick="goTo('direct')"><b>▣</b>TV</button>
-  <button onclick="goTo('sports')"><b>⚽</b>Sports</button>
-  <button onclick="goTo('films')"><b>▰</b>Films</button>
-  <button onclick="openParents()"><b>♙</b>Parents</button>
-</nav></footer>
-
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>Accueil</button><button onclick="goTo('direct')"><b>▣</b>TV</button>
+<button onclick="goTo('sports')"><b>⚽</b>Sports</button><button onclick="goTo('films')"><b>▰</b>Films</button><button onclick="openParents()"><b>♙</b>Parents</button></nav></footer>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17"></script>
 <script>
 function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 function toggleSearch(){const p=document.getElementById('searchPanel');p.style.display=p.style.display==='block'?'none':'block';if(p.style.display==='block')document.getElementById('searchInput').focus();}
-function searchContent(){
-  const q=document.getElementById('searchInput').value.toLowerCase();
-  document.querySelectorAll('.movie').forEach(el=>el.style.display=el.dataset.name.toLowerCase().includes(q)?'block':'none');
-  document.querySelectorAll('.channel-card').forEach(el=>el.style.display=el.textContent.toLowerCase().includes(q)?'flex':'none');
-}
-function openParents(){
-  document.getElementById('parentOverlay').classList.add('open');
-  document.getElementById('parentPin').value='';
-  document.getElementById('pinMessage').textContent=localStorage.getItem('shineParentPin')?'Entrez votre code PIN parental.':'Première utilisation : choisissez un code PIN à 4 chiffres.';
-  document.getElementById('pinGate').hidden=false;document.getElementById('parentSettings').hidden=true;
-}
+function searchContent(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.movie').forEach(el=>el.style.display=el.dataset.name.toLowerCase().includes(q)?'block':'none');document.querySelectorAll('.channel-card').forEach(el=>el.style.display=el.textContent.toLowerCase().includes(q)?'flex':'none');}
+function openParents(){document.getElementById('parentOverlay').classList.add('open');document.getElementById('parentPin').value='';document.getElementById('pinMessage').textContent=localStorage.getItem('shineParentPin')?'Entrez votre code PIN parental.':'Première utilisation : choisissez un code PIN à 4 chiffres.';document.getElementById('pinGate').hidden=false;document.getElementById('parentSettings').hidden=true;}
 function closeParents(){document.getElementById('parentOverlay').classList.remove('open');}
-function unlockParents(){
-  const entered=document.getElementById('parentPin').value;
-  const saved=localStorage.getItem('shineParentPin');
-  const msg=document.getElementById('pinMessage');
-  if(!/^\d{4}$/.test(entered)){msg.textContent='Veuillez entrer exactement 4 chiffres.';return;}
-  if(saved&&entered!==saved){msg.textContent='Code incorrect. Réessayez.';return;}
-  if(!saved)localStorage.setItem('shineParentPin',entered);
-  document.getElementById('pinGate').hidden=true;document.getElementById('parentSettings').hidden=false;loadParentSettings();
-}
-function loadParentSettings(){
-  ['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach(id=>{
-    const v=localStorage.getItem('shine_'+id);if(v!==null)document.getElementById(id).checked=v==='true';
-  });
-}
-function saveParentSettings(){
-  ['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach(id=>localStorage.setItem('shine_'+id,document.getElementById(id).checked));
-  document.getElementById('saveMessage').textContent='Paramètres enregistrés sur cet appareil.';
-}
-function changeParentPin(){
-  const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;
-  if(!/^\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}
-  localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');
-}
+function unlockParents(){const entered=document.getElementById('parentPin').value,saved=localStorage.getItem('shineParentPin'),msg=document.getElementById('pinMessage');if(!/^\d{4}$/.test(entered)){msg.textContent='Veuillez entrer exactement 4 chiffres.';return;}if(saved&&entered!==saved){msg.textContent='Code incorrect. Réessayez.';return;}if(!saved)localStorage.setItem('shineParentPin',entered);document.getElementById('pinGate').hidden=true;document.getElementById('parentSettings').hidden=false;loadParentSettings();}
+function loadParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach(id=>{const v=localStorage.getItem('shine_'+id);if(v!==null)document.getElementById(id).checked=v==='true';});}
+function saveParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach(id=>localStorage.setItem('shine_'+id,document.getElementById(id).checked));document.getElementById('saveMessage').textContent='Paramètres enregistrés sur cet appareil.';}
+function changeParentPin(){const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;if(!/^\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');}
 document.getElementById('parentOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeParents();});
-
-function parseM3U(text){
-  const lines=text.split(/\r?\n/);const list=[];let name='';
-  for(const line of lines){
-    const s=line.trim();
-    if(s.startsWith('#EXTINF'))name=s.split(',').slice(1).join(',').trim()||'Chaîne TV';
-    else if(s&&!s.startsWith('#')&&/^https?:\/\//i.test(s)){list.push({name:name||'Chaîne TV',url:s});name='';}
-  }
-  return list;
-}
-
-/* Les chaînes bulgares fournies sont conservées et ajoutées à la région Europe. */
-const bulgariaM3U = `#EXTM3U
+function parseM3U(text){const lines=text.split(/\r?\n/),list=[];let name='';for(const line of lines){const s=line.trim();if(s.startsWith('#EXTINF'))name=s.split(',').slice(1).join(',').trim()||'Chaîne TV';else if(s&&!s.startsWith('#')&&/^https?:\/\//i.test(s)){list.push({name:name||'Chaîne TV',url:s});name='';}}return list;}
+const bulgariaM3U=`#EXTM3U
 #EXTINF:-1,7/8 TV
 http://213.91.179.28:8000/play/a0cn
 #EXTINF:-1,100% Auto Moto TV
@@ -387,119 +276,45 @@ http://213.91.179.28:8000/play/a044
 #EXTINF:-1,Animal Planet
 http://213.91.179.28:8000/play/a05r
 `;
-
-const bgChannels=parseM3U(bulgariaM3U);
-
-/* Deux flux congolais transmis dans la conversation.
-   Les chaînes de la playlist publique Afrique seront aussi proposées. */
-const congoM3U = `#EXTM3U
+const congoM3U=`#EXTM3U
 #EXTINF:-1,Beb TV
 https://live-hls-qunv.livepush.io/live_cdn/em8A-kbzIfHqu73/index.m3u8
 #EXTINF:-1,DRTV International
 https://vps122407.serveur-vps.net/hls/drtv.m3u8
 `;
-const cgChannels=parseM3U(congoM3U);
-
-const SOURCES={
-  africa:"https://iptv-org.github.io/iptv/regions/afr.m3u",
-  europe:"https://iptv-org.github.io/iptv/regions/eur.m3u",
-  international:"https://iptv-org.github.io/iptv/regions/int.m3u",
-  all:"https://iptv-org.github.io/iptv/index.m3u",
-  movies:"https://iptv-org.github.io/iptv/categories/movies.m3u",
-  entertainment:"https://iptv-org.github.io/iptv/categories/entertainment.m3u",
-  music:"https://iptv-org.github.io/iptv/categories/music.m3u",
-  documentaries:"https://iptv-org.github.io/iptv/categories/documentary.m3u",
-  kids:"https://iptv-org.github.io/iptv/categories/kids.m3u",
-  news:"https://iptv-org.github.io/iptv/categories/news.m3u",
-  sports:"https://iptv-org.github.io/iptv/categories/sports.m3u"
-};
-const channelCache={};
-let hlsInstance=null;
-
-function mergeChannels(...groups){
-  const seen=new Set(),result=[];
-  groups.flat().forEach(ch=>{
-    if(ch.url&&!seen.has(ch.url)){seen.add(ch.url);result.push(ch);}
-  });
-  return result;
-}
-async function getPlaylist(url){
-  const response=await fetch(url,{cache:'no-store'});
-  if(!response.ok)throw new Error('HTTP '+response.status);
-  return parseM3U(await response.text());
-}
-async function loadSelectedChannels(selection){
-  if(channelCache[selection])return channelCache[selection];
-  let channels=[];
-  if(selection==='africa'){
-    let regional=[];
-    try{regional=await getPlaylist(SOURCES.africa);}catch(e){console.warn('Playlist Afrique indisponible',e);}
-    channels=mergeChannels(regional,cgChannels);
-  }else if(selection==='europe'){
-    let regional=[];
-    try{regional=await getPlaylist(SOURCES.europe);}catch(e){console.warn('Playlist Europe indisponible',e);}
-    channels=mergeChannels(regional,bgChannels);
-  }else{
-    channels=await getPlaylist(SOURCES[selection]);
-    if(selection==='all')channels=mergeChannels(channels,cgChannels,bgChannels);
-  }
-  channelCache[selection]=channels;
-  return channels;
-}
-async function showChannels(){
-  stopPlayer();
-  const selection=document.getElementById('countrySelect').value;
-  const target=document.getElementById('channelList');
-  const count=document.getElementById('channelCount');
-  target.innerHTML='<div class="match"><div><strong>Chargement des chaînes…</strong><small>Veuillez patienter.</small></div></div>';
-  count.textContent='Chargement…';
-  try{
-    const channels=await loadSelectedChannels(selection);
-    count.textContent=channels.length+' chaîne(s)';
-    if(!channels.length){
-      target.innerHTML='<div class="match"><div><strong>Aucune chaîne trouvée</strong><small>La liste est momentanément indisponible.</small></div></div>';
-      return;
-    }
-    target.innerHTML='';
-    channels.forEach(channel=>{
-      const card=document.createElement('div');card.className='channel-card';
-      const info=document.createElement('div');
-      const title=document.createElement('strong');title.textContent=channel.name;
-      const sub=document.createElement('small');sub.textContent='TV en direct';
-      info.append(title,sub);
-      const btn=document.createElement('button');btn.className='play-channel';btn.textContent='▶ Regarder';
-      btn.addEventListener('click',()=>playChannel(channel));
-      card.append(info,btn);target.appendChild(card);
-    });
-  }catch(error){
-    console.error('Erreur de chargement des chaînes',error);
-    count.textContent='Indisponible';
-    target.innerHTML='<div class="match"><div><strong>Impossible de charger cette liste</strong><small>Vérifiez votre connexion Internet et réessayez.</small></div></div>';
-  }
-}
-function stopPlayer(){
-  const video=document.getElementById('tvPlayer');
-  if(hlsInstance){hlsInstance.destroy();hlsInstance=null;}
-  video.pause();video.removeAttribute('src');video.load();
-}
-function playChannel(channel){
-  const video=document.getElementById('tvPlayer');
-  const status=document.getElementById('playerStatus');
-  stopPlayer();status.textContent='Chargement de '+channel.name+'…';
-  if(window.Hls&&Hls.isSupported()){
-    hlsInstance=new Hls();hlsInstance.loadSource(channel.url);hlsInstance.attachMedia(video);
-    hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>{
-      video.play().catch(()=>{status.textContent='Appuyez sur lecture pour démarrer '+channel.name+'.';});
-    });
-    hlsInstance.on(Hls.Events.ERROR,(event,data)=>{
-      if(data.fatal)status.textContent='Lecture impossible. Le flux peut être indisponible, bloqué ou incompatible.';
-    });
-  }else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src=channel.url;video.play().catch(()=>{status.textContent='Appuyez sur lecture pour démarrer '+channel.name+'.';});
-  }else status.textContent='Ce navigateur ne prend pas en charge ce format vidéo.';
-}
-document.getElementById('countrySelect').addEventListener('change',showChannels);
-showChannels();
+const burkinaM3U=`#EXTM3U
+#EXTINF:-1,Canal 3
+https://cs2.push2stream.com/CANAL3BENIN/playlist.m3u8
+#EXTINF:-1,Impact TV
+https://edge11.vedge.infomaniak.com/livecast/ik:impacttv-2/manifest.m3u8
+#EXTINF:-1,RTB (360p)
+https://edge12.vedge.infomaniak.com/livecast/ik:rtblive1_8/manifest.m3u8
+#EXTINF:-1,RTB 3
+https://edge13.vedge.infomaniak.com/livecast/ik:rtb3-1/manifest.m3u8
+#EXTINF:-1,Savane TV
+https://savane24.tv:5443/LiveApp/streams/Y4fyif69Q0ll6MeH2190896734859843.m3u8
+`;
+const SOURCES={africa:"https://iptv-org.github.io/iptv/regions/afr.m3u",europe:"https://iptv-org.github.io/iptv/regions/eur.m3u",international:"https://iptv-org.github.io/iptv/regions/int.m3u",all:"https://iptv-org.github.io/iptv/index.m3u",movies:"https://iptv-org.github.io/iptv/categories/movies.m3u",entertainment:"https://iptv-org.github.io/iptv/categories/entertainment.m3u",music:"https://iptv-org.github.io/iptv/categories/music.m3u",documentaries:"https://iptv-org.github.io/iptv/categories/documentary.m3u",kids:"https://iptv-org.github.io/iptv/categories/kids.m3u",news:"https://iptv-org.github.io/iptv/categories/news.m3u",sports:"https://iptv-org.github.io/iptv/categories/sports.m3u"};
+const localLists={congo:parseM3U(congoM3U),burkina:parseM3U(burkinaM3U),bulgaria:parseM3U(bulgariaM3U)};
+const channelCache={};let hlsInstance=null,loadToken=0;
+function mergeChannels(...groups){const seen=new Set(),out=[];groups.flat().forEach(ch=>{if(ch.url&&!seen.has(ch.url)){seen.add(ch.url);out.push(ch);}});return out;}
+async function getPlaylist(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);return parseM3U(await r.text());}
+async function loadSelectedChannels(key){if(channelCache[key])return channelCache[key];let list=[];
+if(localLists[key])list=localLists[key];
+else if(key==='africa'){try{list=mergeChannels(await getPlaylist(SOURCES.africa),localLists.congo,localLists.burkina);}catch(e){list=mergeChannels(localLists.congo,localLists.burkina);}}
+else if(key==='europe'){try{list=mergeChannels(await getPlaylist(SOURCES.europe),localLists.bulgaria);}catch(e){list=localLists.bulgaria;}}
+else if(key==='all'){const online=await getPlaylist(SOURCES.all);list=mergeChannels(online,localLists.congo,localLists.burkina,localLists.bulgaria);}
+else list=await getPlaylist(SOURCES[key]);
+channelCache[key]=list;return list;}
+async function showChannels(){const token=++loadToken;stopPlayer();const key=document.getElementById('countrySelect').value,target=document.getElementById('channelList'),count=document.getElementById('channelCount');target.innerHTML='<div class="match"><div><strong>Chargement des chaînes…</strong><small>Veuillez patienter.</small></div></div>';count.textContent='Chargement…';
+try{const channels=await loadSelectedChannels(key);if(token!==loadToken)return;count.textContent=channels.length+' chaîne(s)';if(!channels.length){target.innerHTML='<div class="match"><div><strong>Aucune chaîne trouvée</strong><small>La liste est momentanément indisponible.</small></div></div>';return;}
+target.innerHTML='';channels.forEach(ch=>{const card=document.createElement('div');card.className='channel-card';const info=document.createElement('div'),title=document.createElement('strong'),sub=document.createElement('small'),btn=document.createElement('button');title.textContent=ch.name;sub.textContent='TV en direct';info.append(title,sub);btn.className='play-channel';btn.textContent='▶ Regarder';btn.addEventListener('click',()=>playChannel(ch));card.append(info,btn);target.appendChild(card);});searchContent();
+}catch(err){if(token!==loadToken)return;console.error(err);count.textContent='Indisponible';target.innerHTML='<div class="match"><div><strong>Impossible de charger cette liste</strong><small>Vérifiez votre connexion Internet et réessayez.</small></div></div>';}}
+function stopPlayer(){const v=document.getElementById('tvPlayer');if(hlsInstance){hlsInstance.destroy();hlsInstance=null;}v.pause();v.removeAttribute('src');v.load();}
+function playChannel(ch){const v=document.getElementById('tvPlayer'),s=document.getElementById('playerStatus');stopPlayer();s.textContent='Chargement de '+ch.name+'…';
+if(window.Hls&&Hls.isSupported()){hlsInstance=new Hls({enableWorker:true,lowLatencyMode:true});hlsInstance.loadSource(ch.url);hlsInstance.attachMedia(v);hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>v.play().catch(()=>s.textContent='Appuyez sur lecture pour démarrer '+ch.name+'.'));hlsInstance.on(Hls.Events.ERROR,(event,data)=>{if(data.fatal){s.textContent='Lecture impossible : flux indisponible, bloqué ou incompatible.';hlsInstance.destroy();hlsInstance=null;}});}
+else if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=ch.url;v.play().catch(()=>s.textContent='Appuyez sur lecture pour démarrer '+ch.name+'.');}
+else{s.textContent='Ce navigateur ne prend pas en charge ce format vidéo.';}}
+document.getElementById('countrySelect').addEventListener('change',showChannels);showChannels();
 </script>
-</body>
-</html>
+</body></html>
