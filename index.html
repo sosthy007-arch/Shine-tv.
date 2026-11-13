@@ -1,291 +1,176 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101020">
+<meta name="theme-color" content="#090909">
+<meta name="description" content="SHINE TV - Votre univers de divertissement">
 <title>SHINE TV</title>
-
 <style>
+.parent-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:20;align-items:center;justify-content:center;padding:16px}
+.parent-overlay.open{display:flex}
+.parent-box{position:relative;width:100%;max-width:430px;max-height:90vh;overflow:auto;background:#171717;border:1px solid #6b552b;border-radius:18px;padding:23px;box-shadow:0 18px 60px #000}
+.parent-box h2{margin:9px 0;font-size:21px}
+.parent-intro,.parent-help{color:#bbb;font-size:13px;line-height:1.5}
+.parent-close{position:absolute;right:14px;top:13px;border:1px solid #444;background:#222;color:#fff;border-radius:50%;width:34px;height:34px}
+.parent-box label{font-size:13px;color:#eee}
+.pin-input{display:block;width:100%;margin:10px 0 14px;padding:14px;background:#0b0b0b;border:1px solid #65532f;border-radius:9px;color:white;font-size:22px;letter-spacing:9px;text-align:center}
+.parent-action{width:100%;margin:7px 0}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #333}
+.setting-row strong{font-size:14px}.setting-row small{display:block;color:#aaa;font-size:11px;margin-top:5px;max-width:240px}
+.switch{position:relative;display:inline-block;width:45px;height:25px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch span{position:absolute;inset:0;background:#555;border-radius:20px;transition:.2s}
+.switch span:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}
+.switch input:checked+span{background:#b78b37}
+.switch input:checked+span:before{transform:translateX(20px)}
+[hidden]{display:none!important}
+:root{--bg:#090909;--panel:#151515;--panel2:#202020;--gold:#d8ad52;--gold2:#f3d58d;--muted:#aaa;--white:#f7f5ef}
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#101020;
- color:white;
- font-family:Arial,sans-serif;
-}
-header{
- background:#191932;
- padding:20px;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-.logo{font-size:27px;font-weight:bold;color:#ffb400}
-.logo span{color:white}
-nav{
- display:flex;
- overflow-x:auto;
- background:#191932;
- padding:12px;
- gap:10px;
-}
-nav button{
- border:0;
- padding:12px 16px;
- border-radius:20px;
- background:#292943;
- color:white;
- white-space:nowrap;
-}
-nav button.active{background:#ffb400;color:#111}
-.search{padding:15px}
-input{
- width:100%;
- padding:14px;
- border-radius:10px;
- border:0;
- font-size:16px;
-}
-h2{padding:0 15px}
-.hero{
- margin:15px;
- padding:30px 20px;
- background:linear-gradient(120deg,#6b159a,#161638);
- border-radius:15px;
-}
-.hero h1{font-size:29px}
-.hero p{color:#ddd}
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:12px;
- padding:15px;
-}
-.card{
- background:#202039;
- border-radius:12px;
- overflow:hidden;
-}
-.poster{
- height:145px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:55px;
- background:linear-gradient(140deg,#54216c,#202044);
-}
-.card h3{font-size:15px;padding:0 10px}
-.card button{
- margin:0 10px 12px;
- padding:10px;
- background:#ffb400;
- border:0;
- border-radius:7px;
- font-weight:bold;
-}
-section{display:none}
-section.active{display:block}
-.player{
- padding:15px;
-}
-video{
- width:100%;
- background:black;
- border-radius:12px;
-}
-footer{
- text-align:center;
- color:#888;
- padding:25px;
-}
-.small{color:#aaa;font-size:13px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;padding-bottom:82px}
+header{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #292929;background:#0c0c0c;position:sticky;top:0;z-index:5}
+.brand{font-size:23px;font-weight:900;letter-spacing:1.5px;color:var(--gold)}
+.brand span{color:#fff}
+.header-actions{display:flex;gap:10px}
+.icon-btn{border:1px solid #383838;background:#181818;color:#fff;border-radius:50%;width:39px;height:39px;font-size:17px}
+main{max-width:900px;margin:auto}
+.hero{margin:16px 14px 24px;min-height:280px;border-radius:19px;overflow:hidden;position:relative;background:linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.45)),linear-gradient(135deg,#40331b,#17120b 55%,#080808);display:flex;align-items:flex-end;padding:24px}
+.hero:before{content:"";position:absolute;width:210px;height:210px;border:1px solid rgba(216,173,82,.3);border-radius:50%;right:-35px;top:15px;box-shadow:0 0 0 22px rgba(216,173,82,.04),0 0 0 48px rgba(216,173,82,.03)}
+.hero-content{position:relative;max-width:440px}
+.eyebrow{color:var(--gold2);font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:32px;line-height:1.1;margin:10px 0}
+.hero p{color:#d0ccc3;line-height:1.5;font-size:14px;margin:0 0 18px}
+.primary{border:0;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17120a;border-radius:9px;padding:12px 17px;font-weight:800}
+.secondary{border:1px solid #777;background:#171717;color:#fff;border-radius:9px;padding:11px 15px;margin-left:7px}
+.section{padding:0 14px;margin:24px 0}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+h2{font-size:18px;margin:0}
+.see-all{font-size:12px;color:var(--gold);background:none;border:0}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.category{min-height:85px;border:1px solid #333;background:linear-gradient(145deg,#1c1c1c,#111);border-radius:13px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:12px}
+.category b{font-size:23px;color:var(--gold);font-weight:normal}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.poster{height:145px;border-radius:12px;background:linear-gradient(145deg,#594528,#17120c 65%,#080808);border:1px solid #4a3a20;display:flex;align-items:flex-end;padding:10px;position:relative;overflow:hidden}
+.poster:before{content:"";position:absolute;width:100px;height:100px;border:1px solid rgba(255,221,155,.35);border-radius:50%;top:12px;right:-20px}
+.poster span{position:relative;font-size:12px;font-weight:bold;text-shadow:0 1px 4px #000}
+.poster small{display:block;color:#c7b58e;font-size:10px;margin-top:4px}
+.card-label{font-size:12px;margin:7px 2px 0;color:#eee}
+.match{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid #303030;border-radius:12px;padding:13px;margin-bottom:9px}
+.match strong{font-size:13px}
+.match small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.live{color:#ff7373;font-size:10px;font-weight:bold;letter-spacing:1px}
+.notice{margin:22px 14px;padding:13px;border:1px solid #594723;background:#1b170f;border-radius:11px;color:#d6c49c;font-size:12px;line-height:1.5}
+footer{position:fixed;bottom:0;left:0;right:0;background:rgba(12,12,12,.97);border-top:1px solid #303030;display:flex;justify-content:space-around;padding:10px 4px max(10px,env(safe-area-inset-bottom));z-index:8}
+nav button{border:0;background:none;color:#aaa;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:55px}
+nav button b{font-size:19px;font-weight:normal}
+nav button.active{color:var(--gold)}
+.search-panel{display:none;padding:12px 14px}
+.search-panel input{width:100%;padding:13px;border-radius:10px;background:#171717;border:1px solid #51452e;color:white;font-size:15px}
+button{cursor:pointer}
+@media(min-width:650px){.hero{min-height:340px;margin-top:24px}.hero h1{font-size:42px}.poster{height:205px}.section{margin:30px 0}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
-
 <body>
-
 <header>
- <div class="logo">SHINE <span>TV</span></div>
- <div>📺</div>
+  <div class="brand">SHINE <span>TV</span></div>
+  <div class="header-actions">
+    <button class="icon-btn" aria-label="Rechercher" onclick="toggleSearch()">⌕</button>
+    <button class="icon-btn" aria-label="Paramètres parentaux" onclick="openParents()">♙</button>
+  </div>
 </header>
+<div class="search-panel" id="searchPanel"><input id="searchInput" type="search" placeholder="Rechercher un film, une série..." oninput="searchContent()"></div>
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Bienvenue dans votre univers</div>
+      <h1>Le divertissement<br>prend une autre dimension.</h1>
+      <p>Retrouvez vos programmes, vos films et les grands rendez-vous sportifs au même endroit.</p>
+      <button class="primary" onclick="document.getElementById('direct').scrollIntoView({behavior:'smooth'})">Découvrir SHINE TV ▶</button>
+      <button class="secondary" onclick="document.getElementById('films').scrollIntoView({behavior:'smooth'})">Explorer</button>
+    </div>
+  </section>
 
-<nav>
- <button class="active" onclick="showPage('home',this)">Accueil</button>
- <button onclick="showPage('films',this)">Films</button>
- <button onclick="showPage('series',this)">Séries</button>
- <button onclick="showPage('live',this)">TV en direct</button>
-</nav>
+  <section class="section">
+    <div class="section-head"><h2>Explorer</h2></div>
+    <div class="categories">
+      <button class="category" onclick="goTo('direct')"><b>▣</b>TV en direct</button>
+      <button class="category" onclick="goTo('sports')"><b>⚽</b>Sports</button>
+      <button class="category" onclick="goTo('films')"><b>▰</b>Films</button>
+      <button class="category" onclick="goTo('series')"><b>▤</b>Séries</button>
+    </div>
+  </section>
 
-<div class="search">
- <input id="search" placeholder="🔍 Rechercher un film ou une série..." oninput="searchItems()">
+  <section class="section" id="direct">
+    <div class="section-head"><h2>📺 TV en direct</h2><button class="see-all">Bientôt disponible</button></div>
+    <div class="match"><div><strong>Vos chaînes préférées</strong><small>Les chaînes autorisées apparaîtront ici</small></div><span class="live">À VENIR</span></div>
+  </section>
+
+  <section class="section" id="sports">
+    <div class="section-head"><h2>⚽ Le rendez-vous sport</h2><button class="see-all">Voir tout</button></div>
+    <div class="match"><div><strong>Calendrier des matchs</strong><small>Programmes et résultats à intégrer</small></div><span style="color:var(--gold);font-size:12px">SPORT</span></div>
+    <div class="match"><div><strong>Événements en direct</strong><small>Disponibles après accord des diffuseurs</small></div><span class="live">BIENTÔT</span></div>
+  </section>
+
+  <section class="section" id="films">
+    <div class="section-head"><h2>🎬 À découvrir</h2><button class="see-all">Catalogue</button></div>
+    <div class="cards">
+      <div class="movie" data-name="Sélection cinéma"><div class="poster"><span>SÉLECTION<small>CINÉMA</small></span></div><div class="card-label">Sélection cinéma</div></div>
+      <div class="movie" data-name="Action"><div class="poster" style="background:linear-gradient(145deg,#56352c,#17100e 70%,#080808)"><span>GRANDS<small>FILMS D'ACTION</small></span></div><div class="card-label">Action</div></div>
+      <div class="movie" data-name="Famille"><div class="poster" style="background:linear-gradient(145deg,#4b4930,#17170e 70%,#080808)"><span>EN FAMILLE<small>À PARTAGER</small></span></div><div class="card-label">Famille</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="series">
+    <div class="section-head"><h2>📽️ Séries</h2><button class="see-all">Bientôt disponible</button></div>
+    <div class="match"><div><strong>Votre prochain épisode</strong><small>Un espace séries sera bientôt disponible</small></div><span style="color:var(--gold);font-size:12px">SÉRIES</span></div>
+  </section>
+
+  <div class="notice">✨ <strong>SHINE TV est en préparation.</strong><br>Cette version présente le design et les rubriques de l'application. Les chaînes, films et événements seront ajoutés uniquement avec les droits et accès nécessaires.</div>
+</main>
+<div class="parent-overlay" id="parentOverlay" role="dialog" aria-modal="true" aria-labelledby="parentTitle">
+  <div class="parent-box">
+    <button class="parent-close" onclick="closeParents()" aria-label="Fermer">✕</button>
+    <div class="eyebrow">Espace famille</div>
+    <h2 id="parentTitle">🔒 Paramètres parentaux</h2>
+    <p class="parent-intro">Protégez les enfants et choisissez les contenus accessibles.</p>
+    <div id="pinGate">
+      <label for="parentPin">Code PIN parental (4 chiffres)</label>
+      <input id="parentPin" class="pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+      <button class="primary parent-action" onclick="unlockParents()">Continuer</button>
+      <p class="parent-help" id="pinMessage">Lors de la première utilisation, choisissez un code PIN que les enfants ne connaissent pas.</p>
+    </div>
+    <div id="parentSettings" hidden>
+      <div class="setting-row"><div><strong>Contrôle parental</strong><small>Activer la protection des contenus</small></div><label class="switch"><input id="parentEnabled" type="checkbox" checked><span></span></label></div>
+      <div class="setting-row"><div><strong>Profil enfant</strong><small>Afficher uniquement les contenus adaptés</small></div><label class="switch"><input id="kidsOnly" type="checkbox"><span></span></label></div>
+      <div class="setting-row"><div><strong>Bloquer les contenus adultes</strong><small>Masquer les contenus réservés aux adultes</small></div><label class="switch"><input id="blockAdult" type="checkbox" checked><span></span></label></div>
+      <div class="setting-row"><div><strong>Autoriser les achats</strong><small>Demander le PIN avant tout achat</small></div><label class="switch"><input id="purchasePin" type="checkbox" checked><span></span></label></div>
+      <button class="secondary parent-action" onclick="changeParentPin()">Modifier le code PIN</button>
+      <button class="primary parent-action" onclick="saveParentSettings()">Enregistrer les paramètres</button>
+      <p class="parent-help" id="saveMessage">Les réglages de cette maquette sont enregistrés sur cet appareil.</p>
+    </div>
+  </div>
 </div>
-
-<section id="home" class="active">
- <div class="hero">
-  <h1>Bienvenue sur SHINE TV</h1>
-  <p>Votre univers de divertissement.</p>
-  <p>Films • Séries • Télévision en direct</p>
- </div>
- <h2>Nos catégories</h2>
- <div class="grid">
-  <div class="card">
-   <div class="poster">🎬</div>
-   <h3>Films</h3>
-   <button onclick="showPage('films')">Découvrir</button>
-  </div>
-  <div class="card">
-   <div class="poster">📺</div>
-   <h3>Séries</h3>
-   <button onclick="showPage('series')">Découvrir</button>
-  </div>
-  <div class="card">
-   <div class="poster">📡</div>
-   <h3>TV en direct</h3>
-   <button onclick="showPage('live')">Regarder</button>
-  </div>
- </div>
-</section>
-
-<section id="films">
- <h2>🎬 Films</h2>
- <div class="grid" id="filmGrid"></div>
-</section>
-
-<section id="series">
- <h2>📺 Séries</h2>
- <div class="grid" id="seriesGrid"></div>
-</section>
-
-<section id="live">
- <h2>📡 Télévision en direct</h2>
- <div class="player">
-  <video id="videoPlayer" controls playsinline></video>
-  <p>Lecteur SHINE TV</p>
-  <p class="small">Ajoutez une adresse vidéo HLS ou MP4 que vous êtes autorisé à diffuser.</p>
-  <input id="streamUrl" placeholder="Adresse du flux vidéo autorisé">
-  <br><br>
-  <button onclick="playStream()" style="padding:12px;background:#ffb400;border:0;border-radius:8px">Lire la chaîne</button>
- </div>
- <h2>Mes chaînes</h2>
- <div id="channels" class="grid"></div>
- <div class="player">
-  <input id="channelName" placeholder="Nom de la chaîne">
-  <br><br>
-  <button onclick="addChannel()" style="padding:12px;background:#ffb400;border:0;border-radius:8px">Ajouter une chaîne</button>
- </div>
-</section>
-
 <footer>
- SHINE TV © 2026
- <p>Votre divertissement, partout.</p>
+  <nav style="display:flex;width:100%;justify-content:space-around">
+    <button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>Accueil</button>
+    <button onclick="goTo('direct')"><b>▣</b>TV</button>
+    <button onclick="goTo('sports')"><b>⚽</b>Sports</button>
+    <button onclick="goTo('films')"><b>▰</b>Films</button>
+    <button onclick="openParents()"><b>♙</b>Parents</button>
+  </nav>
 </footer>
-
 <script>
-const films = [
- ["Film de démonstration","🎬"],
- ["Action et aventure","💥"],
- ["Cinéma","🍿"],
- ["Nouveautés","⭐"]
-];
-
-const series = [
- ["Série de démonstration","📺"],
- ["Aventure","🌍"],
- ["Drama","🎭"],
- ["Comédie","😂"]
-];
-
-function createCards(items,id){
- document.getElementById(id).innerHTML=items.map(item=>`
- <div class="card searchable">
-  <div class="poster">${item[1]}</div>
-  <h3>${item[0]}</h3>
-  <button onclick="alert('Le catalogue vidéo sera connecté dans une prochaine étape.')">Découvrir</button>
- </div>
- `).join("");
-}
-
-createCards(films,"filmGrid");
-createCards(series,"seriesGrid");
-
-function showPage(page,button){
- document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
- document.getElementById(page).classList.add("active");
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- if(button) button.classList.add("active");
- document.getElementById("search").value="";
-}
-
-function searchItems(){
- const q=document.getElementById("search").value.toLowerCase();
- document.querySelectorAll(".searchable").forEach(card=>{
-  card.style.display=card.innerText.toLowerCase().includes(q)?"block":"none";
- });
-}
-
-function playStream(){
- const url=document.getElementById("streamUrl").value.trim();
- if(!url.startsWith("https://")&&!url.startsWith("http://")){
-  alert("Veuillez entrer une adresse vidéo valide.");
-  return;
- }
- const player=document.getElementById("videoPlayer");
- player.src=url;
- player.play().catch(()=>alert("Ce flux n'est pas compatible avec le lecteur."));
-}
-
-function getChannels(){
- try{return JSON.parse(localStorage.getItem("shineChannels"))||[]}
- catch(e){return []}
-}
-
-function saveChannels(channels){
- localStorage.setItem("shineChannels",JSON.stringify(channels));
-}
-
-function displayChannels(){
- const channels=getChannels();
- document.getElementById("channels").innerHTML=channels.map((c,i)=>`
- <div class="card">
-  <div class="poster">📡</div>
-  <h3>${c.name}</h3>
-  <button onclick="playChannel(${i})">Regarder</button>
-  <button onclick="deleteChannel(${i})">Supprimer</button>
- </div>
- `).join("");
-}
-
-function addChannel(){
- const name=document.getElementById("channelName").value.trim();
- const url=document.getElementById("streamUrl").value.trim();
- if(!name||!url.startsWith("http")){
-  alert("Entrez le nom et l'adresse de votre chaîne.");
-  return;
- }
- const channels=getChannels();
- channels.push({name,url});
- saveChannels(channels);
- document.getElementById("channelName").value="";
- displayChannels();
-}
-
-function playChannel(i){
- const channel=getChannels()[i];
- document.getElementById("streamUrl").value=channel.url;
- playStream();
-}
-
-function deleteChannel(i){
- const channels=getChannels();
- channels.splice(i,1);
- saveChannels(channels);
- displayChannels();
-}
-
-displayChannels();
+function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+function toggleSearch(){const p=document.getElementById('searchPanel');p.style.display=p.style.display==='block'?'none':'block';if(p.style.display==='block')document.getElementById('searchInput').focus();}
+function searchContent(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.movie').forEach(el=>{el.style.display=el.dataset.name.toLowerCase().includes(q)?'block':'none';});}
+function openParents(){document.getElementById('parentOverlay').classList.add('open');document.getElementById('parentPin').value='';document.getElementById('pinMessage').textContent=localStorage.getItem('shineParentPin')?'Entrez votre code PIN parental.':'Première utilisation : choisissez un code PIN à 4 chiffres.';document.getElementById('pinGate').hidden=false;document.getElementById('parentSettings').hidden=true;}
+function closeParents(){document.getElementById('parentOverlay').classList.remove('open');}
+function unlockParents(){const entered=document.getElementById('parentPin').value;const saved=localStorage.getItem('shineParentPin');const msg=document.getElementById('pinMessage');if(!/^\\d{4}$/.test(entered)){msg.textContent='Veuillez entrer exactement 4 chiffres.';return;}if(saved&&entered!==saved){msg.textContent='Code incorrect. Réessayez.';return;}if(!saved){localStorage.setItem('shineParentPin',entered);msg.textContent='';}document.getElementById('pinGate').hidden=true;document.getElementById('parentSettings').hidden=false;loadParentSettings();}
+function loadParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach((id)=>{const v=localStorage.getItem('shine_'+id);if(v!==null)document.getElementById(id).checked=v==='true';});}
+function saveParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach((id)=>localStorage.setItem('shine_'+id,document.getElementById(id).checked));document.getElementById('saveMessage').textContent='Paramètres enregistrés sur cet appareil.';}
+function changeParentPin(){const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;if(!/^\\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');}
+document.getElementById('parentOverlay').addEventListener('click',function(e){if(e.target===this)closeParents();});
 </script>
-
 </body>
 </html>
