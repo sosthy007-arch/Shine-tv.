@@ -172,5 +172,13 @@ function saveParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchase
 function changeParentPin(){const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;if(!/^\\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');}
 document.getElementById('parentOverlay').addEventListener('click',function(e){if(e.target===this)closeParents();});
 </script>
+<script>
+fetch('chains-cg.m3u')
+  .then(response => response.text())
+  .then(data => {
+    console.log("Liste SHINE TV chargée :", data);
+  })
+  .catch(error => console.log("Erreur :", error));
+</script>
 </body>
 </html>
