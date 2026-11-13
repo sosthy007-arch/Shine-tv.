@@ -68,6 +68,13 @@ nav button.active{color:var(--gold)}
 .search-panel{display:none;padding:12px 14px}
 .search-panel input{width:100%;padding:13px;border-radius:10px;background:#171717;border:1px solid #51452e;color:white;font-size:15px}
 button{cursor:pointer}
+.country-select{width:100%;padding:13px;margin:4px 0 12px;border-radius:10px;background:#171717;border:1px solid #6b552b;color:#f3d58d;font-size:15px}
+.channel-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#151515;border:1px solid #333;border-radius:11px;padding:12px;margin:8px 0}
+.channel-card strong{font-size:13px}
+.channel-card small{display:block;color:#aaa;font-size:11px;margin-top:4px}
+.play-channel{background:linear-gradient(135deg,#f3d58d,#d8ad52);border:0;color:#17120a;font-weight:bold;border-radius:8px;padding:9px 12px;white-space:nowrap}
+#tvPlayer{width:100%;max-height:260px;background:#000;border:1px solid #594723;border-radius:12px;margin:8px 0}
+.player-status{font-size:12px;color:#d6c49c;line-height:1.5;margin:4px 0 12px}
 @media(min-width:650px){.hero{min-height:340px;margin-top:24px}.hero h1{font-size:42px}.poster{height:205px}.section{margin:30px 0}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
@@ -100,22 +107,23 @@ button{cursor:pointer}
       <button class="category" onclick="goTo('series')"><b>▤</b>Séries</button>
     </div>
   </section>
-<section class="section" id="direct">
-  <div class="section-head">
-    <h2>📺 CHAÎNES TV</h2>
-    <span class="see-all">Catalogue</span>
-  </div>
 
-  <div id="channelList">
-    <div class="match">
-      <div>
-        <strong>Chaînes bientôt disponibles</strong>
-        <small>Les chaînes autorisées apparaîtront ici.</small>
-      </div>
-      <span class="live">À VENIR</span>
+  <section class="section" id="direct">
+    <div class="section-head">
+      <h2>📺 CHAÎNES TV</h2>
+      <span class="see-all" id="channelCount">Chargement…</span>
     </div>
-  </div>
-</section>
+    <label for="countrySelect" class="parent-help">Choisir un pays</label>
+    <select id="countrySelect" class="country-select" onchange="showChannels()">
+      <option value="cg">🇨🇬 Congo</option>
+      <option value="bg">🇧🇬 Bulgarie</option>
+    </select>
+    <video id="tvPlayer" controls playsinline preload="none"></video>
+    <div class="player-status" id="playerStatus">Choisissez une chaîne pour lancer la lecture. La lecture dépend de la disponibilité du flux et de ses autorisations.</div>
+    <div id="channelList">
+      <div class="match"><div><strong>Chargement des chaînes…</strong><small>Veuillez patienter.</small></div></div>
+    </div>
+  </section>
 
   <section class="section" id="sports">
     <div class="section-head"><h2>⚽ Le rendez-vous sport</h2><button class="see-all">Voir tout</button></div>
@@ -137,7 +145,7 @@ button{cursor:pointer}
     <div class="match"><div><strong>Votre prochain épisode</strong><small>Un espace séries sera bientôt disponible</small></div><span style="color:var(--gold);font-size:12px">SÉRIES</span></div>
   </section>
 
-  <div class="notice">✨ <strong>SHINE TV est en préparation.</strong><br>Cette version présente le design et les rubriques de l'application. Les chaînes, films et événements seront ajoutés uniquement avec les droits et accès nécessaires.</div>
+  <div class="notice">✨ <strong>SHINE TV est en préparation.</strong><br>Les chaînes sont affichées à partir de listes M3U. Utilisez uniquement des flux que vous êtes autorisé à diffuser. Certains liens peuvent être indisponibles ou refusés par leur serveur.</div>
 </main>
 <div class="parent-overlay" id="parentOverlay" role="dialog" aria-modal="true" aria-labelledby="parentTitle">
   <div class="parent-box">
@@ -171,25 +179,245 @@ button{cursor:pointer}
     <button onclick="openParents()"><b>♙</b>Parents</button>
   </nav>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
 function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 function toggleSearch(){const p=document.getElementById('searchPanel');p.style.display=p.style.display==='block'?'none':'block';if(p.style.display==='block')document.getElementById('searchInput').focus();}
 function searchContent(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.movie').forEach(el=>{el.style.display=el.dataset.name.toLowerCase().includes(q)?'block':'none';});}
 function openParents(){document.getElementById('parentOverlay').classList.add('open');document.getElementById('parentPin').value='';document.getElementById('pinMessage').textContent=localStorage.getItem('shineParentPin')?'Entrez votre code PIN parental.':'Première utilisation : choisissez un code PIN à 4 chiffres.';document.getElementById('pinGate').hidden=false;document.getElementById('parentSettings').hidden=true;}
 function closeParents(){document.getElementById('parentOverlay').classList.remove('open');}
-function unlockParents(){const entered=document.getElementById('parentPin').value;const saved=localStorage.getItem('shineParentPin');const msg=document.getElementById('pinMessage');if(!/^\\d{4}$/.test(entered)){msg.textContent='Veuillez entrer exactement 4 chiffres.';return;}if(saved&&entered!==saved){msg.textContent='Code incorrect. Réessayez.';return;}if(!saved){localStorage.setItem('shineParentPin',entered);msg.textContent='';}document.getElementById('pinGate').hidden=true;document.getElementById('parentSettings').hidden=false;loadParentSettings();}
+function unlockParents(){const entered=document.getElementById('parentPin').value;const saved=localStorage.getItem('shineParentPin');const msg=document.getElementById('pinMessage');if(!/^\d{4}$/.test(entered)){msg.textContent='Veuillez entrer exactement 4 chiffres.';return;}if(saved&&entered!==saved){msg.textContent='Code incorrect. Réessayez.';return;}if(!saved){localStorage.setItem('shineParentPin',entered);msg.textContent='';}document.getElementById('pinGate').hidden=true;document.getElementById('parentSettings').hidden=false;loadParentSettings();}
 function loadParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach((id)=>{const v=localStorage.getItem('shine_'+id);if(v!==null)document.getElementById(id).checked=v==='true';});}
 function saveParentSettings(){['parentEnabled','kidsOnly','blockAdult','purchasePin'].forEach((id)=>localStorage.setItem('shine_'+id,document.getElementById(id).checked));document.getElementById('saveMessage').textContent='Paramètres enregistrés sur cet appareil.';}
-function changeParentPin(){const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;if(!/^\\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');}
+function changeParentPin(){const next=prompt('Choisissez un nouveau code PIN à 4 chiffres :');if(next===null)return;if(!/^\d{4}$/.test(next)){alert('Le code doit contenir exactement 4 chiffres.');return;}localStorage.setItem('shineParentPin',next);alert('Code PIN modifié sur cet appareil.');}
 document.getElementById('parentOverlay').addEventListener('click',function(e){if(e.target===this)closeParents();});
-</script>
-<script>
-fetch('chains-cg.m3u')
-  .then(response => response.text())
-  .then(data => {
-    console.log("Liste SHINE TV chargée :", data);
-  })
-  .catch(error => console.log("Erreur :", error));
+
+/* Liste bulgare fournie dans la conversation.
+   Les entrées répétées d'une même chaîne sont conservées seulement lorsqu'elles offrent des flux distincts. */
+const bulgariaM3U = `#EXTM3U
+#EXTINF:-1,7/8 TV
+http://213.91.179.28:8000/play/a0cn
+#EXTINF:-1,100% Auto Moto TV
+http://100automoto.tv:1935/bgtv1/autotv/playlist.m3u8
+#EXTINF:-1,Agro TV
+https://restr2.bgtv.bg/agro/hls/agro.m3u8
+#EXTINF:-1,Bloomberg TV Bulgaria
+http://213.91.179.28:8000/play/a04m
+#EXTINF:-1,BNT 1 HD
+https://shift03.isp.bg/BNT1_HD/index.m3u8
+#EXTINF:-1,BNT 1
+http://213.91.179.28:8000/play/a046
+#EXTINF:-1,BNT 2 HD
+https://shift03.isp.bg/BNT2_HD/index.m3u8
+#EXTINF:-1,BNT 2
+http://213.91.179.28:8000/play/a049
+#EXTINF:-1,BNT 3 HD
+https://shift03.isp.bg/BNT3_HD/index.m3u8
+#EXTINF:-1,BNT 3
+http://213.91.179.28:8000/play/a03x
+#EXTINF:-1,BNT 4 HD
+https://shift03.isp.bg/BNT4_HD/index.m3u8
+#EXTINF:-1,BNT 4
+http://213.91.179.28:8000/play/a04u
+#EXTINF:-1,BOX TV
+http://213.91.179.28:8000/play/a0an
+#EXTINF:-1,bTV
+http://85.11.189.178:8080/bTV/index.m3u8
+#EXTINF:-1,bTV
+http://213.91.179.28:8000/play/a03w
+#EXTINF:-1,bTV Action
+http://213.91.179.28:8000/play/a04n
+#EXTINF:-1,bTV Cinema
+http://213.91.179.28:8000/play/a04i
+#EXTINF:-1,bTV Comedy
+http://213.91.179.28:8000/play/a04k
+#EXTINF:-1,bTV Lady
+http://213.91.179.28:8000/play/a05i
+#EXTINF:-1,Bulgaria On Air
+http://213.91.179.28:8000/play/a05x
+#EXTINF:-1,cine.box
+http://212.70.131.37:8000/play/a08b
+#EXTINF:-1,CineStar 1 Bulgaria
+http://213.91.179.28:8000/play/a05h
+#EXTINF:-1,CineStar Action Bulgaria
+http://213.91.179.28:8000/play/a06b
+#EXTINF:-1,City TV
+https://tv.city.bg/play/tshls/citytv/index.m3u8
+#EXTINF:-1,Code Fashion TV
+https://cdn2.invivo.bg/Codefashion_5500/index.m3u8
+#EXTINF:-1,Code Health TV
+https://cdn2.invivo.bg/codehealth_test/index.m3u8
+#EXTINF:-1,Diema
+http://213.91.179.28:8000/play/a045
+#EXTINF:-1,Diema Family
+http://213.91.179.28:8000/play/a047
+#EXTINF:-1,Disney Channel
+http://87.120.179.187:8000/play/a010
+#EXTINF:-1,Disney Channel
+http://213.91.179.28:8000/play/a059
+#EXTINF:-1,DSTV
+http://46.249.95.140:8081/hls/data.m3u8
+#EXTINF:-1,EKids
+http://78.108.244.134:8899/ekids
+#EXTINF:-1,Euronews Bulgaria
+http://213.91.179.28:8000/play/a05e
+#EXTINF:-1,Evrokom
+https://live.ecomservice.bg/hls/stream.m3u8
+#EXTINF:-1,H2
+http://213.91.179.28:8000/play/a03r
+#EXTINF:-1,History
+http://213.91.179.28:8000/play/a0c1
+#EXTINF:-1,Hit Mix Music
+http://213.91.179.28:8000/play/a0cl
+#EXTINF:-1,Hope Channel Bulgaria
+https://hc1.hopetv.bg/live/hopetv_all.smil/playlist.m3u8
+#EXTINF:-1,ID
+http://213.91.179.28:8000/play/a0cf
+#EXTINF:-1,Kino Nova
+http://213.91.179.28:8000/play/a041
+#EXTINF:-1,Light Channel
+https://streamer1.streamhost.org/salive/GMIlcbgM/playlist.m3u8
+#EXTINF:-1,Magic TV
+https://bss1.neterra.tv/magictv/magictv.m3u8
+#EXTINF:-1,Max Sport 1
+http://213.91.179.28:8000/play/a0as
+#EXTINF:-1,Max Sport 2
+http://213.91.179.28:8000/play/a0at
+#EXTINF:-1,Max Sport 3
+http://213.91.179.28:8000/play/a0ar
+#EXTINF:-1,Max Sport 4
+http://213.91.179.28:8000/play/a05n
+#EXTINF:-1,Movie Star HD
+https://shift03.isp.bg/MovieStar/index.m3u8
+#EXTINF:-1,Movie Star
+http://85.14.32.26:8800/udp/239.100.10.160:5000
+#EXTINF:-1,National Geographic
+http://213.91.179.28:8000/play/a0ct
+#EXTINF:-1,National Geographic Wild
+http://213.91.179.28:8000/play/a0cu
+#EXTINF:-1,Nickelodeon
+http://87.120.179.187:8000/play/a00x
+#EXTINF:-1,Nickelodeon
+http://213.91.179.28:8000/play/a056
+#EXTINF:-1,Nostalgia
+http://213.91.179.28:8000/play/a03q
+#EXTINF:-1,Nova
+http://213.91.179.28:8000/play/a03l
+#EXTINF:-1,Nova News
+http://213.91.179.28:8000/play/a063
+#EXTINF:-1,Plovdivska Pravoslavna TV
+http://78.130.149.196:1935/live/pptv.stream/playlist.m3u8
+#EXTINF:-1,RING
+http://213.91.179.28:8000/play/a06e
+#EXTINF:-1,RMTV
+https://transcoder1.bitcare.eu/streaming/rimextv/rmtv.m3u8
+#EXTINF:-1,Star Channel
+http://213.91.179.28:8000/play/a0c9
+#EXTINF:-1,Star Crime
+http://213.91.179.28:8000/play/a0cs
+#EXTINF:-1,Star Life
+http://213.91.179.28:8000/play/a0cr
+#EXTINF:-1,The Voice TV
+https://bss1.neterra.tv/thevoice/thevoice.m3u8
+#EXTINF:-1,This is Bulgaria HD
+https://streamer103.neterra.tv/thisisbulgaria/live.m3u8
+#EXTINF:-1,Tiankov Folk
+https://streamer103.neterra.tv/tiankov-folk/live.m3u8
+#EXTINF:-1,Tiankov Orient Folk
+https://streamer103.neterra.tv/tiankov-orient/live.m3u8
+#EXTINF:-1,Travel TV
+https://streamer103.neterra.tv/travel/live.m3u8
+#EXTINF:-1,Viasat Kino Bulgaria
+http://85.14.32.26:8800/udp/239.100.10.100:5000
+#EXTINF:-1,TV1000
+http://stream.mcquack.net/100/tracks-v1a1/mono.ts.m3u8?ads=1&filter.tracks=v1a1
+#EXTINF:-1,TV Rodina
+https://shift03.isp.bg/RodinaTV/index.m3u8
+#EXTINF:-1,TV Spravedliva Bulgariya
+https://tv.tvsb.bg/112.m3u8
+#EXTINF:-1,TV Zagora
+http://zagoratv.ddns.net:8080/tvzagora.m3u8
+#EXTINF:-1,Viasat Explore
+https://shift03.isp.bg/ViasatExplorer_HD/index.m3u8
+#EXTINF:-1,Viasat History
+https://shift03.isp.bg/ViasatHistory_HD/index.m3u8
+#EXTINF:-1,Viasat Nature
+https://shift03.isp.bg/ViasatNature_HD/index.m3u8
+#EXTINF:-1,Vivacom Arena
+http://213.91.179.28:8000/play/a053
+#EXTINF:-1,Super Toons
+https://d3bxvshzgfq6in.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-8a0c583l9gryw/feed/samsung/streams/SUPERTOONS_EN/master.m3u8?token=737aa2c3f17862a448f403cd2ac2b5ef1a0c413e1cf080a13a19cea99119221f
+#EXTINF:-1,ID
+http://213.91.179.28:8000/play/a0c0
+#EXTINF:-1,Discovery Channel
+http://213.91.179.28:8000/play/a044
+#EXTINF:-1,Animal Planet
+http://213.91.179.28:8000/play/a05r
+`;
+
+function parseM3U(text){
+  const lines=text.split(/\r?\n/);const list=[];let name='';
+  for(const line of lines){const s=line.trim();if(s.startsWith('#EXTINF')){name=s.split(',').slice(1).join(',').trim()||'Chaîne TV';}
+    else if(s && !s.startsWith('#') && /^https?:\/\//i.test(s)){list.push({name:name||'Chaîne TV',url:s});name='';}}
+  return list;
+}
+const bgChannels=parseM3U(bulgariaM3U);
+let cgChannels=[];
+let hlsInstance=null;
+function showChannels(){
+  stopPlayer();
+  const country=document.getElementById('countrySelect').value;
+  const list=country==='bg'?bgChannels:cgChannels;
+  const target=document.getElementById('channelList');
+  document.getElementById('channelCount').textContent=list.length+' chaîne(s)';
+  if(!list.length){
+    target.innerHTML='<div class="match"><div><strong>Liste du Congo non chargée</strong><small>Vérifiez que chains-cg.m3u est bien placé à côté de index.html et accessible sur le serveur.</small></div></div>';
+    return;
+  }
+  target.innerHTML='';
+  list.forEach((channel,index)=>{
+    const card=document.createElement('div');card.className='channel-card';
+    const info=document.createElement('div');const title=document.createElement('strong');title.textContent=channel.name;
+    const sub=document.createElement('small');sub.textContent='TV en direct';
+    info.append(title,sub);
+    const btn=document.createElement('button');btn.className='play-channel';btn.textContent='▶ Regarder';
+    btn.addEventListener('click',()=>playChannel(channel));
+    card.append(info,btn);target.appendChild(card);
+  });
+}
+function stopPlayer(){
+  const video=document.getElementById('tvPlayer');
+  if(hlsInstance){hlsInstance.destroy();hlsInstance=null;}
+  video.pause();video.removeAttribute('src');video.load();
+}
+function playChannel(channel){
+  const video=document.getElementById('tvPlayer');
+  const status=document.getElementById('playerStatus');
+  stopPlayer();status.textContent='Chargement de '+channel.name+'…';
+  if(window.Hls && Hls.isSupported()){
+    hlsInstance=new Hls();hlsInstance.loadSource(channel.url);hlsInstance.attachMedia(video);
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>{video.play().catch(()=>{status.textContent='Appuyez sur lecture pour démarrer '+channel.name+'.';});});
+    hlsInstance.on(Hls.Events.ERROR,(event,data)=>{if(data.fatal)status.textContent='Lecture impossible pour le moment. Le flux peut être indisponible, bloqué ou incompatible.';});
+  }else if(video.canPlayType('application/vnd.apple.mpegurl')){
+    video.src=channel.url;video.play().catch(()=>{status.textContent='Appuyez sur lecture pour démarrer '+channel.name+'.';});
+  }else{
+    status.textContent='Ce navigateur ne prend pas en charge ce format vidéo.';
+  }
+}
+async function loadCongo(){
+  try{
+    const response=await fetch('chains-cg.m3u',{cache:'no-store'});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    cgChannels=parseM3U(await response.text());
+    if(!cgChannels.length)throw new Error('Aucune chaîne trouvée dans le fichier M3U');
+  }catch(error){
+    cgChannels=[];
+    console.warn('Impossible de charger chains-cg.m3u :',error);
+  }
+  showChannels();
+}
+document.getElementById('countrySelect').addEventListener('change',showChannels);
+loadCongo();
 </script>
 </body>
 </html>
